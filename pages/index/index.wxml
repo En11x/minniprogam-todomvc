@@ -1,0 +1,25 @@
+<!-- //index -->
+<view class="container">
+<!-- 头部 -->
+  <view class="title">
+    <text>todos</text>
+  </view>
+  <!-- 内容 -->
+  <view class="list">
+    <view class="list-items">
+      <image src="{{leftcount==0?'/assets/arrow1.png':'/assets/arrow.png'}}" class="selectAll" bind:tap="selectAll"></image>
+      <input bindblur="reset" bindconfirm="addtodo" placeholder="What needs to be done?" value="{{name}}"></input>
+    </view>
+    <block wx:for="{{list}}" wx:key="{{id}}">
+      <view class="list-items">
+        <icon type="{{item.completed?'success':'circle'}}" bind:tap="clickIco" data-id="{{item.id}}"></icon>
+        <input class="{{item.completed?'completed':''}}" bindfocus="getEditName" bindblur="reset" bindconfirm="edittodo" data-id="{{item.id}}" value="{{item.name}}"></input>
+        <icon type="clear" bind:tap="clear"></icon>
+      </view>
+    </block>
+    <view class="list-items footer">
+      <text>{{leftcount}} items left</text>
+      <view class="clear" bind:tap="clearCompleted" wx:if='{{list.length-leftcount>0}}'>clear completed</view>
+    </view>
+  </view>
+</view>
